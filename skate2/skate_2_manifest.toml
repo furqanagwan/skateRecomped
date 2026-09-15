@@ -12,4 +12,5 @@ includes = [
     "config/codegen.toml",
     "config/functions.toml",
     "config/switch_tables.toml",
+    "config/setjmp.toml",
 ]

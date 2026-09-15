@@ -11,4 +11,5 @@ out_directory_path = "generated/default"
 includes = [
     "config/codegen.toml",
     "config/functions.toml",
+    "config/setjmp.toml",
 ]

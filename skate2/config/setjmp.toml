@@ -1,0 +1,4 @@
+# The CRT setjmp/longjmp, mapped to the host's by codegen. Without them a guest
+# longjmp returns into an unwound host frame. Found with find_setjmp.py.
+setjmp_address = 0x82CDE7C0
+longjmp_address = 0x82C85590

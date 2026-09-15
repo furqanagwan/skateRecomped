@@ -108,15 +108,33 @@ macro(rexglue_setup_target target_name)
     rexglue_configure_target(${target_name} ${ARGN})
 endmacro()
 
+# Include DLL module shared library targets if codegen has generated them. They
+# come before the codegen command so their sources can be listed as its outputs.
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/generated/default/dll_targets.cmake")
+    include(generated/default/dll_targets.cmake)
+endif()
+set(REXGLUE_MODULE_GENERATED_SOURCES "")
+get_cmake_property(_rexglue_variables VARIABLES)
+foreach(_rexglue_variable IN LISTS _rexglue_variables)
+    if(_rexglue_variable MATCHES "^DLL_SOURCES_")
+        list(APPEND REXGLUE_MODULE_GENERATED_SOURCES ${${_rexglue_variable}})
+    endif()
+endforeach()
+unset(_rexglue_variables)
+unset(_rexglue_variable)
+
 # Codegen runs as part of the build, re-running only when an input in codegen.d
 # changes. Build it alone with 'cmake --build . --target skate_codegen'.
 # Listing the sources as outputs orders any target that compiles them after
 # codegen, including one a project assembles itself rather than taking the
-# library rexglue_setup_target() builds. The stamp comes first: the DEPFILE
-# names it.
+# library rexglue_setup_target() builds. DLL module sources are listed too:
+# with restat, ninja only rebuilds objects whose sources are declared outputs, so
+# a module whose code changed would otherwise need a second build. The stamp
+# comes first: the DEPFILE names it.
 add_custom_command(
     OUTPUT "${CMAKE_CURRENT_SOURCE_DIR}/generated/default/codegen.build.stamp"
            ${REXGLUE_ENTRYPOINT_GENERATED_SOURCES}
+           ${REXGLUE_MODULE_GENERATED_SOURCES}
     COMMAND $<TARGET_FILE:rex::rexglue> codegen ${CMAKE_CURRENT_SOURCE_DIR}/skate_manifest.toml
     DEPFILE "${CMAKE_CURRENT_SOURCE_DIR}/generated/default/codegen.d"
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
@@ -126,7 +144,3 @@ add_custom_command(
 add_custom_target(skate_codegen
     DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/generated/default/codegen.build.stamp")
 
-# Include DLL module shared library targets if codegen has generated them
-if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/generated/default/dll_targets.cmake")
-    include(generated/default/dll_targets.cmake)
-endif()
