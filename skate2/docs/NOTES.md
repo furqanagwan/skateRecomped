@@ -20,6 +20,12 @@ With the image dumped: 152 functions referenced from data and 1,043 from code
 gaps. Stabilizing then reported 5,193 split branches in one round (401 seeds
 disabled) and 23 in the next; `prune_bad_seeds.py --image` disabled one more.
 
+### 2026-09-15: latent unresolved branches
+After the framework learned to read leftover `REX_FATAL` stubs from the
+generated code (see Skate's notes), it found eight branches into the middle of
+functions that no run had reached yet, caused by nine gap seeds; all nine are
+disabled. Result: 802 seeds, no unresolved stubs.
+
 ## Runtime
 
 ### 2026-09-15: illegal instruction on boot

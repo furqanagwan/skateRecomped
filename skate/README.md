@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="docs/icon.png" alt="Skate 2" width="320">
+  <img src="docs/icon.png" alt="Skate" width="320">
 </p>
 
-<h1 align="center">Skate 2</h1>
+<h1 align="center">Skate</h1>
 
 <p align="center">
   Native PC static recompilation of the Xbox 360 version, built on the
@@ -17,19 +17,19 @@
 | Publisher | Electronic Arts |
 | Series | Skate |
 | Platform recompiled | Xbox 360 |
-| Released | January 2009 |
+| Released | September 2007 |
 | Genre | Sports, skateboarding |
-| Achievements | 46, 1000 Gamerscore |
+| Achievements | 44, 1000 Gamerscore |
 
 ## Regions
 
 | Region | Serial | Status |
 | --- | --- | --- |
-| 🇪🇺 Europe (English, Spanish, Italian, Dutch) | `EA-2175` | ✅ Tested (the disc below) |
-| 🇪🇺 Europe (French, German) | `EA-2175` | ⬜ Not tested |
-| 🇩🇪 Germany | `EA-2223` | ⬜ Not tested |
-| 🇺🇸 USA | `EA-2175` | ⬜ Not tested |
-| 🇯🇵 Japan | `EA-2175` | ⬜ Not tested |
+| 🇪🇺 Europe (English, Spanish, Italian) | `EA-2067` | ✅ Tested (the disc below) |
+| 🇪🇺 Europe (French, German) | `EA-2067` | ⬜ Not tested |
+| 🇺🇸 USA | `EA-2067` | ⬜ Not tested |
+| 🇯🇵 Japan | `EA-2067` | ⬜ Not tested |
+| 🌏 Asia | `EA-2067` | ⬜ Not tested |
 
 Only the tested disc's `default.xex` has been recompiled. Other regional
 executables are likely to differ and may need their own codegen pass.
@@ -40,12 +40,12 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
 | | |
 | --- | --- |
 | Region | 🇪🇺 Europe |
-| Title ID | `4541087F` |
-| Media ID | `6ADB5821` |
-| Executable version | 0.0.0.2 (built 2008-12-10) |
-| Languages | English, Spanish, Italian, Dutch |
-| Contents | 142 files, 6,754,906,074 bytes |
-| Executable | `default.xex`, 5,713,920 bytes |
+| Title ID | `45410813` |
+| Media ID | `1F6E4912` |
+| Executable version | 0.0.0.4 (built 2007-08-22) |
+| Languages | English, Spanish, Italian |
+| Contents | 148 files, 5,344,017,481 bytes |
+| Executable | `default.xex`, 6,291,456 bytes |
 | DLL modules | None |
 | Video format | EA VP6 (`.vp6`) |
 
@@ -54,8 +54,9 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
 | Area | State |
 | --- | --- |
 | Boot, shader compilation | Working |
-| Main menu | Reached, with the 3D city backdrop |
-| Stability | Ran two minutes at the main menu without errors |
+| Intro cinematic | Plays with correct colour; still running after 2.5 minutes |
+| Main menu | Not yet reached; the intro probably needs a button press |
+| Stability | No errors in a three-minute run |
 | Controller input, career, free skate | Not yet tested |
 | Audio | Initializes; not yet checked by ear |
 | DLC | Installer in place (see the [root README](../README.md#dlc)); no packages tested |
@@ -64,10 +65,10 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
 
 ## Play
 
-1. Download `Skate2-v<version>-windows-x64.zip` from
-   [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate2)
+1. Download `Skate-v<version>-windows-x64.zip` from
+   [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate)
    and extract it to a folder you can write to.
-2. Run `Skate 2.exe` and choose your Xbox 360 ISO (European English disc, see
+2. Run `Skate.exe` and choose your Xbox 360 ISO (European English disc, see
    [Regions](#regions)); the files are copied once.
 3. Open the system menu with **View + Menu** (or **Esc**) for Settings and Exit.
 
@@ -79,9 +80,9 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
 | Processor | 64-bit x86 CPU with SSE4.1 |
 | Graphics | DirectX 12 GPU (feature level 11_0) |
 | Memory | 8 GB RAM recommended |
-| Storage | 7 GB, plus room for the ISO while it is copied |
+| Storage | 5.5 GB, plus room for the ISO while it is copied |
 | Software | [Microsoft Visual C++ Redistributable 2015-2022 (x64)](https://aka.ms/vs/17/release/vc_redist.x64.exe) |
-| Game | Your own Skate 2 (Europe, English/Spanish/Italian/Dutch) Xbox 360 disc image |
+| Game | Your own Skate (Europe, English/Spanish/Italian) Xbox 360 disc image |
 
 Tested on an Intel Core Ultra 9 275HX, GeForce RTX 5080 Laptop GPU and 32 GB RAM
 (Windows 11).
@@ -89,37 +90,38 @@ Tested on an Intel Core Ultra 9 275HX, GeForce RTX 5080 Laptop GPU and 32 GB RAM
 ## Build from source
 
 ```
-rexglue extract "<your disc>.iso" skate2\assets
-.\framework\scripts\build.ps1 -Game skate2
+rexglue extract "<your disc>.iso" skate\assets
+.\framework\scripts\build.ps1 -Game skate
 ```
 
-Setup is described in [CONTRIBUTING.md](../CONTRIBUTING.md).
+Codegen for Skate takes 5 to 7 minutes per pass. Setup is described in
+[CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ## Default settings
 
-`settings/skate_2.toml` starts from the NBA LIVE settings (`rov` / `fsi` render
-target paths, no background pipeline creation, 60 Hz vsync). Whether Skate 2
+`settings/skate.toml` starts from the NBA LIVE settings (`rov` / `fsi` render
+target paths, no background pipeline creation, 60 Hz vsync). Whether Skate
 needs each of them has not been tested separately.
 
 ## Recompilation notes
 
 | | |
 | --- | --- |
-| Generated sources | 177 files, about 186 MB |
-| Function seeds | 802 in `config/functions.toml` |
-| Disabled seeds | 416 in `config/disabled_function_seeds.txt` (they split functions or loops) |
-| Jump tables | 3 under-counted tables fixed in `config/switch_tables.toml` |
+| Generated sources | 248 files, about 269 MB |
+| Function seeds | 1,816 in `config/functions.toml`, including explicit bounds for 9 functions codegen split wrongly |
+| Disabled seeds | 421 in `config/disabled_function_seeds.txt` (they split functions or loops) |
+| Jump tables | No under-counted tables |
 | Kernel stubs | None needed beyond the framework's |
-| Known codegen warnings | 6 unhandled `vpkd3d128` float16_4 packs, one 1.35 MB function |
+| Known codegen warnings | Unhandled `vpkd3d128` float16_4 packs |
 
 The full log of what was found and fixed is in [docs/NOTES.md](docs/NOTES.md).
 
 ## Xbox Developer Mode (UWP)
 
 ```powershell
-.\framework\scripts\build.ps1 -Game skate2 -Preset win-amd64-uwp-release
-.\framework\scripts\package_uwp.ps1 -Game skate2 -Register
-.\framework\scripts\package_uwp.ps1 -Game skate2 -Pack
+.\framework\scripts\build.ps1 -Game skate -Preset win-amd64-uwp-release
+.\framework\scripts\package_uwp.ps1 -Game skate -Register
+.\framework\scripts\package_uwp.ps1 -Game skate -Pack
 ```
 
 ## Artwork
@@ -127,11 +129,11 @@ The full log of what was found and fixed is in [docs/NOTES.md](docs/NOTES.md).
 `docs/icon.png` is the title image from `default.xex`, upscaled to 1024x1024.
 To regenerate the exe icon and Xbox app images locally:
 
-1. `rexglue init --project-name skate_2 --xex-path assets\default.xex achievements assets\default.xex metadata`
+1. `rexglue init --project-name skate --xex-path assets\default.xex achievements assets\default.xex metadata`
 2. Upscale `metadata/icons/title.png` 4x twice with Real-ESRGAN
    (`realesrgan-x4plus`) to `metadata/gdk_hd/title_1024.png`, or copy
    `docs/icon.png` there.
-3. `.\framework\scripts\generate_artwork.ps1 -Game skate2 -ProjectName skate_2`
+3. `.\framework\scripts\generate_artwork.ps1 -Game skate -ProjectName skate`
 
 ## Legal
 

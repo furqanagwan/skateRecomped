@@ -10,7 +10,7 @@ files or extracted assets. You must own the game.
 
 | Game | Supported disc | Status | Download |
 | --- | --- | --- | --- |
-| [Skate](skate/README.md) | 🇪🇺 Europe (`45410813`) | Codegen in progress, not yet booting | |
+| [Skate](skate/README.md) | 🇪🇺 Europe (`45410813`) | Boots and plays the intro cinematic; menu not yet reached | [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate) |
 | [Skate 2](skate2/README.md) | 🇪🇺 Europe (`4541087F`) | Boots to the main menu | [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate2) |
 
 Skate 3 already has a separate project,
