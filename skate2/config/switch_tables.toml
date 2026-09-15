@@ -1,0 +1,22 @@
+# Jump tables whose size codegen under-counts. Codegen sizes a table from the
+# bounds check before the bctr; when another path reaches the table with a
+# larger index, the generated switch hits its out-of-range trap. Found with
+# find_short_switch_tables.py; each entry lists every slot read from the image.
+
+# sub_82697270: table 0x82697400, codegen found 3 of 5 slots
+[[switch_tables]]
+address = 0x826973FC
+register = 11
+labels = [0x82697414, 0x82697414, 0x82697414, 0x82697414, 0x82697414]
+
+# sub_82695938: table 0x82696B38, codegen found 3 of 5 slots
+[[switch_tables]]
+address = 0x82696B34
+register = 11
+labels = [0x82696B4C, 0x82696B4C, 0x82696B4C, 0x82696B4C, 0x82696B4C]
+
+# sub_82696F48: table 0x82697154, codegen found 3 of 5 slots
+[[switch_tables]]
+address = 0x82697150
+register = 11
+labels = [0x82697168, 0x82697168, 0x82697168, 0x82697168, 0x82697168]
