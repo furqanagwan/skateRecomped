@@ -84,3 +84,9 @@ Logged but harmless so far: `ResolvePath(big:\data\content\global_locators\...)`
 and the same under `dlcbig:` (no such devices), `NtCreateFile` failures for
 directories that only exist inside BIG archives (`d:\data\scene\`,
 `d:\data\content\recipe\...`), and `d:\fileserver.ini`.
+
+### 2026-09-17: naming the team and the player
+A new save asks for a team name ("Enter New Team Name", default "New Team")
+and then the player's ("Enter your name:"), both through XamShowKeyboardUI
+with a 16-character buffer. They now open the framework's on-screen keyboard:
+the team name went back to the game, which then asked for the player's name.
