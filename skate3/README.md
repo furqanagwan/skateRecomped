@@ -27,8 +27,9 @@
 | --- | --- | --- |
 | 🇺🇸🇪🇺 USA, Europe (English, French, German, Spanish, Italian, Dutch) | `TODO` | ✅ Tested (the disc below) |
 
-Only the tested disc's `default.xex` has been recompiled. Other regional
-executables are likely to differ and may need their own codegen pass.
+Only the tested disc's executable has been recompiled, as patched by Title
+Update 3. Other regional executables, and other updates, are likely to differ and
+need their own codegen pass.
 Region list from [Redump](http://redump.org/discs/system/xbox360/).
 
 ## Disc
@@ -38,7 +39,7 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
 | Region | 🇺🇸🇪🇺 USA, Europe |
 | Title ID | `454108E6` |
 | Media ID | `5C087C2C` |
-| Executable version | 0.0.0.3 (retail, no title update) |
+| Executable version | 0.0.0.3 on the disc; this build is recompiled from Title Update 3 (0.0.3.3) |
 | Languages | English, French, German, Spanish, Italian, Dutch |
 | Contents | 103 files, 6,404,940,920 bytes |
 | Executable | `default.xex`, 6,615,040 bytes |
@@ -50,12 +51,13 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
 | --- | --- |
 | Boot, shader compilation | Working |
 | Intro | EA logo and intro cinematic play, then a skater skates through the city with the HUD |
-| Stability | Ran three minutes without errors |
-| Performance | 48 fps average, 7 fps 1% low (emulated GPU, RTX 5080 Laptop GPU) |
-| Controller input, menus, career, free skate | Not yet tested |
+| Gameplay | Skating with the trick HUD, pedestrians and shadows, driven with a controller |
+| Stability | Ran two minutes of gameplay and three minutes of the intro without errors |
+| Performance | 56 fps average, 14 fps 1% low in gameplay (emulated GPU, RTX 5080 Laptop GPU) |
+| Menus, career, free skate | Not yet tested beyond the above |
 | EAWebkit module | Recompiled; not yet loaded in a run |
 | Audio | Initializes; not yet checked by ear |
-| Title updates | Not supported: they replace game code, so they need a new recompilation |
+| Title update | Title Update 3 required: the recompiled code is the update's, so the update must be installed. The disc's own executable would need its own build (`config/`, kept for it) |
 | DLC | Installer in place (see the [root README](../README.md#dlc)); no packages tested |
 | Xbox PC app, UWP builds | Configured, not yet tested |
 | Linux, macOS, Steam Deck | Builds expected, not play-tested |
@@ -67,7 +69,10 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
    and extract it to a folder you can write to.
 2. Run `Skate 3.exe` and choose your Xbox 360 ISO (see
    [Regions](#regions)); the files are copied once.
-3. Open the system menu with **View + Menu** (or **Esc**) for Settings and Exit.
+3. When asked, choose your own Title Update 3 package (the
+   `TU_12K2276_000000C000000.00000000000O3` file an Xbox 360 downloads). It is
+   checked against this build and installed once.
+4. Open the system menu with **View + Menu** (or **Esc**) for Settings and Exit.
 
 ## System requirements
 
@@ -103,11 +108,12 @@ null pointer while it boots (see [docs/NOTES.md](docs/NOTES.md)).
 
 | | |
 | --- | --- |
-| Modules | `default.xex`, and `data/webkit/EAWebkit.xex` in `config/eawebkit/` |
+| Modules | `default.xex`, and `data/webkit/EAWebkit.xex` in `config/tu3/eawebkit/` |
 | Generated sources | 213 files, about 221 MB (EAWebkit about 66 MB more) |
-| Function seeds | 588 in `config/functions.toml` |
-| Disabled seeds | 343 in `config/disabled_function_seeds.txt` (they split functions or loops) |
-| Jump tables | One 643-entry table, past codegen's 512-entry cap, in `config/switch_tables.toml` |
+| Configs | `config/tu3/` for this Title Update 3 build; `config/` holds the disc build's, which its own seeds do not fit |
+| Function seeds | 592 in `config/tu3/functions.toml` |
+| Disabled seeds | 344 in `config/tu3/disabled_function_seeds.txt` (they split functions or loops) |
+| Jump tables | One under-counted table in `config/tu3/switch_tables.toml` |
 | Kernel stubs | None needed beyond the framework's |
 | Known codegen warnings | 6 unhandled `vpkd3d128` float16_4 packs, one 1.09 MB function |
 

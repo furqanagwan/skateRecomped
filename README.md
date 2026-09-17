@@ -8,11 +8,11 @@ executable, point it at your own Xbox 360 disc image, and play.
 This repository and its releases contain no game data: no disc images, game
 files or extracted assets. You must own the game.
 
-| Game | Supported disc | Status | Download |
-| --- | --- | --- | --- |
-| [Skate](skate/README.md) | 🇪🇺 Europe (`45410813`) | Boots and plays the intro cinematic; menu not yet reached | [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate) |
-| [Skate 2](skate2/README.md) | 🇪🇺 Europe (`4541087F`) | Boots to the main menu | [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate2) |
-| [Skate 3](skate3/README.md) | 🇺🇸🇪🇺 USA, Europe (`454108E6`) | Boots and plays the intro; menu not yet tested with input | [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate3) |
+| Game | Supported disc | Built from | Status | Download |
+| --- | --- | --- | --- | --- |
+| [Skate](skate/README.md) | 🇪🇺 Europe (`45410813`) | The disc | Boots and plays the intro cinematic; menu not yet reached | [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate) |
+| [Skate 2](skate2/README.md) | 🇪🇺 Europe (`4541087F`) | Title Update 2 | Boots to the main menu | [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate2) |
+| [Skate 3](skate3/README.md) | 🇺🇸🇪🇺 USA, Europe (`454108E6`) | Title Update 3 | Skates, with tricks scoring and the HUD | [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate3) |
 
 Skate 3 also has a separate project with a native renderer,
 [skate3recomp](https://github.com/mchughalex/skate3recomp), whose research this
@@ -44,8 +44,16 @@ each release is recompiled from one regional executable.
 Put downloadable content packages (the `CON`, `LIVE` or `PIRS` files from an
 Xbox 360 `Content\0000000000000000\<TitleID>\00000002` folder) in the `dlc`
 folder next to the executable. Each package is checked against the game's title
-ID and installed on the next start. Title updates are skipped: they replace game
-code, so they need a new recompilation.
+ID and installed on the next start.
+
+### Title updates
+
+A disc plays on its own, as it did on the console, so a title update is optional
+here too. What is not optional is matching: an update replaces game code, so a
+build is recompiled either from the disc's executable or from one exact update,
+never a mix. The game's README says which, and a build that needs an update asks
+for your own package on first launch and checks it before installing it. Packages
+are yours to supply; none ship here.
 
 ### Saves and settings
 

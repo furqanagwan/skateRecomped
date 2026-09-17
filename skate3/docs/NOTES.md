@@ -5,7 +5,8 @@ Record the evidence (log lines, addresses, what a dump showed), not only the fix
 
 ## Title info
 - Title: Skate 3 (USA, Europe), English, French, German, Spanish, Italian, Dutch
-- Title ID: 454108E6, media ID 5C087C2C, executable version 0.0.0.3 (retail, no title update)
+- Title ID: 454108E6, media ID 5C087C2C, executable version 0.0.0.3 on the disc; this
+  build is recompiled from Title Update 3 (0.0.3.3)
 - Achievements: 47, 1000 Gamerscore
 - Guest DLL modules: `data/webkit/EAWebkit.xex` (4,923,392 bytes)
 - Disc: 103 files, 6,404,940,920 bytes; `default.xex` is 6,615,040 bytes
@@ -13,9 +14,9 @@ Record the evidence (log lines, addresses, what a dump showed), not only the fix
 ## Prior work: skate3recomp
 
 [skate3recomp](https://github.com/mchughalex/skate3recomp) runs Skate 3 on its own
-ReXGlue 0.8 fork. It recompiles the Title Update 3 executables; this project, like
-Skate and Skate 2, recompiles the disc's executable and skips title updates. Its
-retail fixes, checked against this build:
+ReXGlue 0.8 fork. It recompiles the Title Update 3 executables, as this build now
+does as well; the disc build's own config is kept in `config/`. Its findings,
+checked against the disc build here:
 
 - setjmp at 0x82F44E40 (its "exception guard" workaround): found by
   `find_setjmp.py` and mapped in `config/setjmp.toml`.
@@ -90,3 +91,27 @@ A new save asks for a team name ("Enter New Team Name", default "New Team")
 and then the player's ("Enter your name:"), both through XamShowKeyboardUI
 with a 16-character buffer. They now open the framework's on-screen keyboard:
 the team name went back to the game, which then asked for the player's name.
+
+### 2026-09-17: recompiled from Title Update 3
+The build now targets Title Update 3 (`default.xexp` and `data/webkit/EAWebkit.xexp`
+from `TU_12K2276_000000C000000.00000000000O3`), which the runtime installs and
+applies: `XEX patch applied successfully: base version: 0.0.0.3, new version:
+0.0.3.3`.
+
+The first attempt reused this folder's disc-build seeds and generated 1,475
+`REX_FATAL("Unresolved ...")` stubs, because the update moves code and those seeds
+land inside its functions and split them. It died five seconds in on
+`Unresolved branch from 0x82F72D20 to 0x82F72D0C`, where 0x82F72D20 is a
+disc-build seed.
+
+The update now has its own config (`config/tu3/`, and `config/tu3/eawebkit/` for
+the patched DLL), discovered against the patched image: 592 seeds, 344 disabled,
+one under-counted jump table, no stubs left. Its CRT setjmp/longjmp are at
+0x82F6FAA0 / 0x82F4FEB0, not the disc build's 0x82F44E40 / 0x82F25260 - the
+clearest illustration of why a version needs its own pass. EAWebkit was again not
+loaded within the dump timeout, so it has no scans yet.
+
+Played for two minutes with a controller: skating, tricks scoring, pedestrians
+and shadows, 56 fps average and 14 fps 1% low, no errors. The run ended when the
+guide's Leave Game was chosen, not on a fault. The same `big:` and `dlcbig:`
+locator lookups fail as on the disc build.

@@ -1,5 +1,5 @@
 {
-  "supported_disc": "Skate 3 (USA, Europe, English/French/German/Spanish/Italian/Dutch), title ID 454108E6",
+  "supported_disc": "Skate 3 (USA, Europe, English/French/German/Spanish/Italian/Dutch), title ID 454108E6, requires Title Update 3 (media ID 5C087C2C, version 00000003)",
   "publisher": "Electronic Arts",
   "system_requirements": [
     "OS: Windows 10 version 2004 (build 19041) or Windows 11, 64-bit",
@@ -8,6 +8,7 @@
     "Memory: 8 GB RAM recommended",
     "Storage: 6.5 GB free for the game files, plus room for your ISO while it is copied",
     "Software: Microsoft Visual C++ Redistributable 2015-2022 (x64)",
-    "Your own Xbox 360 disc image of the supported disc"
+    "Your own Xbox 360 disc image of the supported disc",
+    "Your own Skate 3 Title Update 3 package, which the game installs on first launch"
   ]
 }

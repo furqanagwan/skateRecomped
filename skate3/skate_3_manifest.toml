@@ -11,9 +11,9 @@ patched_file_path = "title_updates/staging/tu1/default.xex"
 out_directory_path = "generated/default"
 includes = [
     "config/codegen.toml",
-    "config/functions.toml",
-    "config/switch_tables.toml",
-    "config/setjmp.toml",
+    "config/tu3/functions.toml",
+    "config/tu3/switch_tables.toml",
+    "config/tu3/setjmp.toml",
 ]
 
 [[modules]]
@@ -23,6 +23,6 @@ patched_file_path = "title_updates/staging/tu1/data/webkit/EAWebkit.xex"
 out_directory_path = "generated/eawebkit"
 includes = [
     "config/codegen.toml",
-    "config/eawebkit/functions.toml",
-    "config/eawebkit/setjmp.toml",
+    "config/tu3/eawebkit/functions.toml",
+    "config/tu3/eawebkit/setjmp.toml",
 ]
