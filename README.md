@@ -12,10 +12,11 @@ files or extracted assets. You must own the game.
 | --- | --- | --- | --- |
 | [Skate](skate/README.md) | 🇪🇺 Europe (`45410813`) | Boots and plays the intro cinematic; menu not yet reached | [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate) |
 | [Skate 2](skate2/README.md) | 🇪🇺 Europe (`4541087F`) | Boots to the main menu | [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate2) |
+| [Skate 3](skate3/README.md) | 🇺🇸🇪🇺 USA, Europe (`454108E6`) | Boots and plays the intro; menu not yet tested with input | [Releases](https://github.com/furqanagwan/skateRecomped/releases?q=skate3) |
 
-Skate 3 already has a separate project,
-[skate3recomp](https://github.com/mchughalex/skate3recomp), which is not part of
-this repository.
+Skate 3 also has a separate project with a native renderer,
+[skate3recomp](https://github.com/mchughalex/skate3recomp), whose research this
+one builds on.
 
 ## Playing
 
@@ -59,7 +60,7 @@ where. An empty `portable.txt` next to the executable keeps them beside it.
 | Processor | 64-bit x86 CPU with SSE4.1 |
 | Graphics | DirectX 12 GPU (feature level 11_0) |
 | Memory | 8 GB RAM recommended |
-| Storage | Skate: 5.5 GB, Skate 2: 7 GB, plus room for the ISO while it is copied |
+| Storage | Skate: 5.5 GB, Skate 2: 7 GB, Skate 3: 6.5 GB, plus room for the ISO while it is copied |
 | Software | [Microsoft Visual C++ Redistributable 2015-2022 (x64)](https://aka.ms/vs/17/release/vc_redist.x64.exe) |
 | Game | Your own Xbox 360 disc image of a supported region |
 
@@ -85,6 +86,7 @@ rexglue extract "<your disc>.iso" skate2\assets
 framework/                  recomp-framework submodule (with thirdparty/rexglue-sdk)
 skate/                      Skate: descriptor, codegen config, settings, GDK/UWP metadata
 skate2/                     Skate 2
+skate3/                     Skate 3 (with the EAWebkit DLL module under config/eawebkit/)
 <GAME>/docs/NOTES.md        Research notes: codegen, crashes and fixes
 <GAME>/release.json         Supported disc and system requirements for release packaging
 ```
