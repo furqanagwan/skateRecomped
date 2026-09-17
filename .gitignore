@@ -6,6 +6,7 @@
 __pycache__/
 
 */assets/
+*/title_updates/
 */generated/*/
 !*/generated/rexglue.cmake
 */metadata/icons/

@@ -31,8 +31,8 @@
 | 🇺🇸 USA | `EA-2175` | ⬜ Not tested |
 | 🇯🇵 Japan | `EA-2175` | ⬜ Not tested |
 
-Only the tested disc's `default.xex` has been recompiled. Other regional
-executables are likely to differ and may need their own codegen pass.
+This build targets the tested disc with Title Update 2. Other regional
+executables and title updates may need their own codegen pass.
 Region list from [Redump](http://redump.org/discs/system/xbox360/).
 
 ## Disc
@@ -43,6 +43,7 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
 | Title ID | `4541087F` |
 | Media ID | `6ADB5821` |
 | Executable version | 0.0.0.2 (built 2008-12-10) |
+| Required update | Title Update 2 (`00000002`) |
 | Languages | English, Spanish, Italian, Dutch |
 | Contents | 142 files, 6,754,906,074 bytes |
 | Executable | `default.xex`, 5,713,920 bytes |
@@ -69,7 +70,9 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
    and extract it to a folder you can write to.
 2. Run `Skate 2.exe` and choose your Xbox 360 ISO (European English disc, see
    [Regions](#regions)); the files are copied once.
-3. Open the system menu with **View + Menu** (or **Esc**) for Settings and Exit.
+3. When prompted, choose your own Title Update 2 package. The matching package
+   has title ID `4541087F`, media ID `6ADB5821`, and version `00000002`.
+4. Open the system menu with **View + Menu** (or **Esc**) for Settings and Exit.
 
 ## System requirements
 
@@ -90,6 +93,7 @@ Tested on an Intel Core Ultra 9 275HX, GeForce RTX 5080 Laptop GPU and 32 GB RAM
 
 ```
 rexglue extract "<your disc>.iso" skate2\assets
+rexglue package "<your Title Update 2 package>" skate2\title_updates\staging
 .\framework\scripts\build.ps1 -Game skate2
 ```
 
