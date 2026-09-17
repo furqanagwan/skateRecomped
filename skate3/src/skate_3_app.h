@@ -18,6 +18,17 @@ class Skate3App final : public recomp::GameRecompApp {
     recomp::GameDescriptor descriptor;
     descriptor.app_name = "skate_3";
     descriptor.display_name = "Skate 3";
+    descriptor.title_update = recomp::TitleUpdateDescriptor{
+        .label = "Title Update 3",
+        .title_id = 0x454108E6,
+        .media_id = 0x5C087C2C,
+        .version = 0x00000003,
+        .code_patches = {{
+            .path = "default.xexp", .size = 1701888, .content_hash = "dc4cd0306f52326baae80c8c851bf6aa",
+        }, {
+            .path = "data/webkit/EAWebkit.xexp", .size = 4096, .content_hash = "8dfe7618d1a69047903b3893a249020c",
+        }},
+    };
 #ifdef RECOMP_DEVELOPMENT_GAME_ROOT
     descriptor.development_game_root = RECOMP_DEVELOPMENT_GAME_ROOT;
 #endif

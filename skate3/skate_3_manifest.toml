@@ -7,6 +7,7 @@ game_root = "assets"
 
 [entrypoint]
 file_path = "assets/default.xex"
+patched_file_path = "title_updates/staging/tu1/default.xex"
 out_directory_path = "generated/default"
 includes = [
     "config/codegen.toml",
@@ -18,6 +19,7 @@ includes = [
 [[modules]]
 guest_path = "data/webkit/EAWebkit.xex"
 file_path = "assets/data/webkit/EAWebkit.xex"
+patched_file_path = "title_updates/staging/tu1/data/webkit/EAWebkit.xex"
 out_directory_path = "generated/eawebkit"
 includes = [
     "config/codegen.toml",
