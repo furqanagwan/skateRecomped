@@ -53,3 +53,27 @@ without errors. Not yet tested: controller input in menus, career, free skate.
 
 Logged but harmless so far: `dlcbig:\data\audio\french\` fails to resolve (no DLC
 installed) and many `XFileSectorInformation` stub calls while streaming.
+
+### 2026-09-17: recompiled from Title Update 2
+The build targets Title Update 2, from `TU_12K223V_0000008000000.00000000000G2`
+(title ID 4541087F, media ID 6ADB5821 matching the disc, version 00000002). The
+folder also holds updates 1 and 4, whose media IDs are 151D8210 and 7B479EFC, so
+they belong to other discs. The runtime installs it and reports `XEX patch applied
+successfully: base version: 0.0.0.2, new version: 0.0.2.2`.
+
+The first attempt reused this folder's disc-build seeds and generated 908
+`REX_FATAL("Unresolved ...")` stubs, for the same reason as Skate 3: an update
+moves code, so those seeds split its functions.
+
+The second attempt, with an empty `config/tu2/`, looked clean at 1 seed - but the
+image was never dumped (`default was not dumped: the game did not load it within
+120 s`), because with no update installed the build waits on the title-update
+dialog, so the data, gap and code-built scans never ran. Installing the update
+first and rerunning discovery gave the real config: 145 functions referenced from
+data, 1,048 from code gaps, 21 built in code, 799 seeds, 417 disabled, three
+under-counted jump tables, no stubs. setjmp/longjmp are at 0x82CE2E60 /
+0x82C89C10, where the disc build has 0x82CDE7C0 / 0x82C85590.
+
+Ran three minutes at the title screen ("Press START to continue", with the
+warehouse scene behind it) without errors: 31.7 fps average, 26.1 fps 1% low,
+5,079 draws per frame median, the GPU command thread busy 99% of the frame.

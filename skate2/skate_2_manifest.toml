@@ -11,7 +11,7 @@ patched_file_path = "title_updates/staging/default.xex"
 out_directory_path = "generated/default"
 includes = [
     "config/codegen.toml",
-    "config/functions.toml",
-    "config/switch_tables.toml",
-    "config/setjmp.toml",
+    "config/tu2/functions.toml",
+    "config/tu2/setjmp.toml",
+    "config/tu2/switch_tables.toml",
 ]

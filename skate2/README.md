@@ -56,7 +56,7 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
 | --- | --- |
 | Boot, shader compilation | Working |
 | Main menu | Reached, with the 3D city backdrop |
-| Stability | Ran two minutes at the main menu without errors |
+| Stability | Ran three minutes at the title screen without errors on the Title Update 2 build |
 | Controller input, career, free skate | Not yet tested |
 | Audio | Initializes; not yet checked by ear |
 | DLC | Installer in place (see the [root README](../README.md#dlc)); no packages tested |
@@ -110,9 +110,10 @@ needs each of them has not been tested separately.
 | | |
 | --- | --- |
 | Generated sources | 177 files, about 186 MB |
-| Function seeds | 802 in `config/functions.toml` |
-| Disabled seeds | 416 in `config/disabled_function_seeds.txt` (they split functions or loops) |
-| Jump tables | 3 under-counted tables fixed in `config/switch_tables.toml` |
+| Configs | `config/tu2/` for this Title Update 2 build; `config/` holds the disc build's, which its own seeds do not fit |
+| Function seeds | 799 in `config/tu2/functions.toml` |
+| Disabled seeds | 417 in `config/tu2/disabled_function_seeds.txt` (they split functions or loops) |
+| Jump tables | 3 under-counted tables fixed in `config/tu2/switch_tables.toml` |
 | Kernel stubs | None needed beyond the framework's |
 | Known codegen warnings | 6 unhandled `vpkd3d128` float16_4 packs, one 1.35 MB function |
 
