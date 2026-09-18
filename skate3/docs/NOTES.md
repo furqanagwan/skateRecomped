@@ -115,3 +115,60 @@ Played for two minutes with a controller: skating, tricks scoring, pedestrians
 and shadows, 56 fps average and 14 fps 1% low, no errors. The run ended when the
 guide's Leave Game was chosen, not on a fault. The same `big:` and `dlcbig:`
 locator lookups fail as on the disc build.
+
+## Renderer
+
+### 2026-09-18: what a city frame draws
+Traced the attract demo's city, which needs no input: the EA logo and intro run
+to about frame 1,200, and the city holds from there to the end of the run. 2,949
+draws in the frame traced, 55.6 fps average over 100 s.
+
+The frame is **tiled**. Every world draw is submitted twice, and the second half
+is an exact replay of the first: same draw count per program, same index count
+draw for draw, for both the colour and the depth programs. The Xenos splits the
+1200-pitch 2x MSAA target across EDRAM tiles and the guest replays the command
+list once per tile. A native renderer has to draw this scene once, or it renders
+and pays for everything twice.
+
+There is a **depth pre-pass**: `B4E21448711110DE:A4A965C189287B99`, 388 draws,
+`edram_mode` 5 (`kDepthOnly`), no textures. The same geometry is drawn again for
+colour.
+
+The programs in a city frame, by draws:
+
+| vertex:pixel | draws | indices/draw | textures | pass |
+| --- | --- | --- | --- | --- |
+| `F91B29D8FC044DBF:959B4F51AB838BB0` | 924 | 345 | 2 | colour, the world |
+| `B4E21448711110DE:A4A965C189287B99` | 388 | 443 | 0 | depth pre-pass |
+| `B56724DBA4CA4FE0:C24E796B8CA7A91A` | 228 | 238 | 1 | colour |
+| `B6C9863F710683EC:A4A965C189287B99` | 216 | 1 | 0 | not geometry, see below |
+| `B35C2C3AC53D594A:F8CA956A5B036EEE` | 204 | 413 | 10 | colour, layered material |
+
+The hashes in skateRecomped#4 came from an earlier capture and no longer
+describe this build: its two textured candidates draw 24 times and not at all.
+Its one negative result holds and is stronger than recorded - `B6C9863F710683EC`
+draws a *single index as a point list*, 216 times, spread over four surface
+pitches, so it is a per-pass marker rather than overlay geometry.
+
+### 2026-09-18: the world is already in world space
+None of the world programs carries a per-object transform. For
+`F91B29D8FC044DBF` nothing in c0-c15 changes per draw at all; `B35C2C3AC53D594A`
+does have per-draw constants but they are scalars in `.x` (0.3, 8, 1), material
+parameters rather than a matrix.
+
+The transform chain, checked numerically rather than read off:
+
+- **c0-c3 is the view-projection**, row-major, w row in c3.
+- **c4 is the camera in world space.** `c3 . (c4,1)` is 0.00001 in every frame
+  sampled, so the camera lies exactly on the w=0 plane, which only holds if c4
+  is the eye and c3 is the w row.
+- **The near plane is 0.1**: `c2 . (camera,1)` is -0.1000 every frame.
+- c5-c7 never change. c8-c11 is a *fixed* frame - c11 is (22.03, 112.39,
+  -459.79) while the camera moves, so it is a light or sector origin, not the
+  camera as first assumed. c12-c15 changes per frame.
+
+Vertex buffers back this up: one buffer per draw, and the addresses persist -
+193 of 200 are the same ten frames apart, at a 20-byte stride (5 words) for
+`F91B29D8FC044DBF` and 28 bytes for the other two. Resident, long-lived,
+world-space geometry a native renderer can read directly and draw with its own
+view-projection. That is the good case; no per-object matrices to reconstruct.
