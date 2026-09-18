@@ -209,3 +209,24 @@ weight-of-evidence answer across a capture, not a per-draw one.
 Captured with `--gpu_trace_frame=1 --gpu_trace_min_draws=2000`: the attract demo
 reaches the city anywhere between frame 1,200 and 3,500, so a frame number alone
 misses it more often than not.
+
+### 2026-09-18: what 4K costs, and what it cannot fix
+City scene, vsync off, city frames only (draws > 2000):
+
+| | frame time | draw time | fps |
+| --- | --- | --- | --- |
+| 720p (`draw_resolution_scale` 1) | 7.32 ms | 3.72 ms | 136.6 |
+| 4K (scale 3, 3840x2160) | 14.58 ms | 9.87 ms | 68.6 |
+
+Nine times the pixels for twice the frame time, still above 60 uncapped. Most
+of the cost does not scale with resolution - it is command-stream work - so
+pixels are not what limits this frame.
+
+Measure with vsync **off**: with it on, scales 1, 2 and 3 all sit at exactly
+16.7 ms and the setting looks like it does nothing.
+
+What 4K does not fix, because the assets were authored for 720p: the most-used
+world textures are 1024x1024 and 512x512 DXT1, and the 11 movies in
+`assets/data/movies` are 1280x720 VP6 (1 GB, a 618 MB intro) plus two 256x144
+in-game camera feeds. Geometry edges sharpen for free; texture and video detail
+cannot, without new assets and a way to load them (recomp-framework#8, #10).
