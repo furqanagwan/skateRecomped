@@ -108,8 +108,12 @@ The update now has its own config (`config/tu3/`, and `config/tu3/eawebkit/` for
 the patched DLL), discovered against the patched image: 592 seeds, 344 disabled,
 one under-counted jump table, no stubs left. Its CRT setjmp/longjmp are at
 0x82F6FAA0 / 0x82F4FEB0, not the disc build's 0x82F44E40 / 0x82F25260 - the
-clearest illustration of why a version needs its own pass. EAWebkit was again not
-loaded within the dump timeout, so it has no scans yet.
+clearest illustration of why a version needs its own pass. EAWebkit never loads
+in the tested offline menus, so the SDK now dumps its fully
+loaded, patched image during codegen. Discovery against that image produced 119
+active seeds and the module still builds cleanly. EA's official Skate 3 GPL release
+identifies this module as EAWebKit 1.10.01 and provides its Xenon Visual Studio
+2008 project and source: https://gpl.ea.com/skate3.html
 
 Played for two minutes with a controller: skating, tricks scoring, pedestrians
 and shadows, 56 fps average and 14 fps 1% low, no errors. The run ended when the
