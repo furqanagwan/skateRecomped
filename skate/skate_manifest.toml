@@ -7,9 +7,10 @@ game_root = "assets"
 
 [entrypoint]
 file_path = "assets/default.xex"
+patched_file_path = "title_updates/staging/tu1/default.xex"
 out_directory_path = "generated/default"
 includes = [
     "config/codegen.toml",
-    "config/functions.toml",
-    "config/setjmp.toml",
+    "config/tu2/functions.toml",
+    "config/tu2/setjmp.toml",
 ]

@@ -31,8 +31,9 @@
 | 🇯🇵 Japan | `EA-2067` | ⬜ Not tested |
 | 🌏 Asia | `EA-2067` | ⬜ Not tested |
 
-Only the tested disc's `default.xex` has been recompiled. Other regional
-executables are likely to differ and may need their own codegen pass.
+This build targets the tested disc as patched by Title Update 2. Other regional
+executables and other updates are likely to differ and need their own codegen
+pass.
 Region list from [Redump](http://redump.org/discs/system/xbox360/).
 
 ## Disc
@@ -42,7 +43,8 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
 | Region | 🇪🇺 Europe |
 | Title ID | `45410813` |
 | Media ID | `1F6E4912` |
-| Executable version | 0.0.0.4 (built 2007-08-22) |
+| Executable version | 0.0.0.4 on the disc; this build is recompiled from Title Update 2 (0.0.2.4) |
+| Required update | Title Update 2 (media ID `1F6E4912`, version `00000004`) |
 | Languages | English, Spanish, Italian |
 | Contents | 148 files, 5,344,017,481 bytes |
 | Executable | `default.xex`, 6,291,456 bytes |
@@ -54,11 +56,14 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
 | Area | State |
 | --- | --- |
 | Boot, shader compilation | Working |
-| Intro cinematic | Plays with correct colour; still running after 2.5 minutes |
-| Main menu | Not yet reached; the intro probably needs a button press |
-| Stability | No errors in a three-minute run |
-| Controller input, career, free skate | Not yet tested |
+| Intro cinematic | Plays with correct colour |
+| Title screen, main menu | Reached, driven with a controller |
+| Gameplay | Skating around Downtown with the HUD, minimap, pedestrians, traffic and line scoring |
+| Stability | Ran three minutes with a controller without errors |
+| Performance | 59.9 fps average, 43.5 fps 1% low (emulated GPU, RTX 5080 Laptop GPU) |
+| Career | Not yet tested |
 | Audio | Initializes; not yet checked by ear |
+| Title update | Title Update 2 required: the recompiled code is the update's, so the update must be installed. The disc's own executable would need its own build (`config/`, kept for it) |
 | DLC | Installer in place (see the [root README](../README.md#dlc)); no packages tested |
 | Xbox PC app, UWP builds | Configured, not yet tested |
 | Linux, macOS, Steam Deck | Builds expected, not play-tested |
@@ -70,7 +75,12 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
    and extract it to a folder you can write to.
 2. Run `Skate.exe` and choose your Xbox 360 ISO (European English disc, see
    [Regions](#regions)); the files are copied once.
-3. Open the system menu with **View + Menu** (or **Esc**) for Settings and Exit.
+3. When prompted, choose your own Title Update 2 package, or let the game
+   fetch it. The matching package has title ID `45410813`, media ID
+   `1F6E4912`, and version `00000004`; it is checked against this build and
+   installed once. Skate's other Title Update 2 package (media ID
+   `21D6D331`) patches a different release of the disc and is rejected.
+4. Open the system menu with **View + Menu** (or **Esc**) for Settings and Exit.
 
 ## System requirements
 
@@ -82,7 +92,7 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
 | Memory | 8 GB RAM recommended |
 | Storage | 5.5 GB, plus room for the ISO while it is copied |
 | Software | [Microsoft Visual C++ Redistributable 2015-2022 (x64)](https://aka.ms/vs/17/release/vc_redist.x64.exe) |
-| Game | Your own Skate (Europe, English/Spanish/Italian) Xbox 360 disc image |
+| Game | Your own Skate (Europe, English/Spanish/Italian) Xbox 360 disc image and your own Title Update 2 package |
 
 Tested on an Intel Core Ultra 9 275HX, GeForce RTX 5080 Laptop GPU and 32 GB RAM
 (Windows 11).
@@ -91,6 +101,8 @@ Tested on an Intel Core Ultra 9 275HX, GeForce RTX 5080 Laptop GPU and 32 GB RAM
 
 ```
 rexglue extract "<your disc>.iso" skate\assets
+rexglue package "<your Title Update 2 package>" skate\title_updates\staging\tu1
+copy skate\assets\default.xex skate\title_updates\staging\tu1
 .\framework\scripts\build.ps1 -Game skate
 ```
 
@@ -108,8 +120,9 @@ needs each of them has not been tested separately.
 | | |
 | --- | --- |
 | Generated sources | 248 files, about 269 MB |
-| Function seeds | 1,816 in `config/functions.toml`, including explicit bounds for 9 functions codegen split wrongly |
-| Disabled seeds | 421 in `config/disabled_function_seeds.txt` (they split functions or loops) |
+| Configs | `config/tu2/` for this Title Update 2 build; `config/` holds the disc build's, which its own seeds do not fit |
+| Function seeds | 1,820 in `config/tu2/functions.toml`, including explicit bounds for 10 functions codegen split wrongly |
+| Disabled seeds | 419 in `config/tu2/disabled_function_seeds.txt` (they split functions or loops) |
 | Jump tables | No under-counted tables |
 | Kernel stubs | None needed beyond the framework's |
 | Known codegen warnings | Unhandled `vpkd3d128` float16_4 packs |
