@@ -55,7 +55,7 @@ Region list from [Redump](http://redump.org/discs/system/xbox360/).
 | Stability | Ran two minutes of gameplay and three minutes of the intro without errors |
 | Performance | 56 fps average, 14 fps 1% low in gameplay (emulated GPU, RTX 5080 Laptop GPU) |
 | Menus, career, free skate | Not yet tested beyond the above |
-| EAWebkit module | Recompiled and discovered offline from its TU3-patched image; 119 function seeds |
+| EAWebkit module | Recompiled and discovered offline for the disc and TU3 builds; 119 function seeds each |
 | Audio | Initializes; not yet checked by ear |
 | Title update | Title Update 3 required: the recompiled code is the update's, so the update must be installed. The disc's own executable would need its own build (`config/`, kept for it) |
 | DLC | Installer in place (see the [root README](../README.md#dlc)); no packages tested |

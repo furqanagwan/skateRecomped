@@ -110,8 +110,9 @@ one under-counted jump table, no stubs left. Its CRT setjmp/longjmp are at
 0x82F6FAA0 / 0x82F4FEB0, not the disc build's 0x82F44E40 / 0x82F25260 - the
 clearest illustration of why a version needs its own pass. EAWebkit never loads
 in the tested offline menus, so the SDK now dumps its fully
-loaded, patched image during codegen. Discovery against that image produced 119
-active seeds and the module still builds cleanly. EA's official Skate 3 GPL release
+loaded image during codegen. Discovery produced the same 119 active seeds for the
+disc and TU3 configs; their resulting function files are byte-identical and both
+modules build cleanly. EA's official Skate 3 GPL release
 identifies this module as EAWebKit 1.10.01 and provides its Xenon Visual Studio
 2008 project and source: https://gpl.ea.com/skate3.html
 
