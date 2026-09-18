@@ -177,3 +177,35 @@ Vertex buffers back this up: one buffer per draw, and the addresses persist -
 `F91B29D8FC044DBF` and 28 bytes for the other two. Resident, long-lived,
 world-space geometry a native renderer can read directly and draw with its own
 view-projection. That is the good case; no per-object matrices to reconstruct.
+
+### 2026-09-18: what submits the world
+Tagged the world draws with the guest code that wrote their packets
+(`--gpu_trace_submitters`). The chain, with each address resolved to the
+function containing it:
+
+```
+sub_82F57C70            outermost frame of every stack, 64 bytes
+  -> sub_824F4540       game code, 376 bytes  \  two submitters, alternating
+  -> sub_824854A8       game code, 352 bytes  /
+       -> sub_82B78EF8            248 bytes      graphics library
+            -> sub_82B7C500       744 bytes      writes the world's packets
+       -> sub_82B83E88            344 bytes      writes the layered material's
+```
+
+The split is clean: everything from 0x82B7 upwards is the graphics library, and
+the game's own submitters are **`sub_824F4540` and `sub_824854A8`**, both called
+from `sub_82F57C70`. Those two are what a native renderer hooks. `sub_82B89D98`
+also appears, as a lone frame with nothing behind it, on 46% of the world's
+tagged draws - a leaf packet writer the stack walk could not see past.
+
+Why two submitters rather than one is not yet established. It is not the depth
+pass, which uses a different shader program and was not in this trace, and it is
+not the tiling, which replays the same call. Worth knowing before hooking either.
+
+Coverage: 700 of 39,320 draws carried a sample, about 1.8%, lower than the ~10%
+seen on Skate. The sampling is per command buffer page per frame, so this is a
+weight-of-evidence answer across a capture, not a per-draw one.
+
+Captured with `--gpu_trace_frame=1 --gpu_trace_min_draws=2000`: the attract demo
+reaches the city anywhere between frame 1,200 and 3,500, so a frame number alone
+misses it more often than not.
