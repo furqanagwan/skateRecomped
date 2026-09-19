@@ -29,6 +29,14 @@ class Skate3App final : public recomp::GameRecompApp {
             .path = "data/webkit/EAWebkit.xexp", .size = 4096, .content_hash = "8dfe7618d1a69047903b3893a249020c",
         }},
     };
+    descriptor.dlc = {
+        {.label = "Danny Way's Hawaiian Dream"},
+        {.label = "Maloof Money Cup 2010 NYC Pack"},
+        {.label = "San Van Party Pack"},
+        {.label = "Black Box Distribution Skate Park"},
+        {.label = "skate.Create Upgrade Pack"},
+        {.label = "Time Is Money Pack"},
+    };
 #ifdef RECOMP_DEVELOPMENT_GAME_ROOT
     descriptor.development_game_root = RECOMP_DEVELOPMENT_GAME_ROOT;
 #endif

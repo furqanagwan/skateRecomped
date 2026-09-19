@@ -29,6 +29,14 @@ class Skate2App final : public recomp::GameRecompApp {
             .content_hash = "805506add8662f859b3fbac932240a97",
         }},
     };
+    // The marketplace titles, which is what the packages carry as their own
+    // display name. No file names: the catalogue came from the store listing,
+    // not from the packages, so these match on title.
+    descriptor.dlc = {
+        {.label = "Throwback Pack"},
+        {.label = "Filmer Pack"},
+        {.label = "Maloof Money Cup Pack"},
+    };
 #ifdef RECOMP_DEVELOPMENT_GAME_ROOT
     descriptor.development_game_root = RECOMP_DEVELOPMENT_GAME_ROOT;
 #endif

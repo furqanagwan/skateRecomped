@@ -27,6 +27,9 @@ class SkateApp final : public recomp::GameRecompApp {
             .path = "default.xexp", .size = 772096, .content_hash = "1302c285a37e608b79a7605791870805",
         }},
     };
+    // skate. shipped no add-ons: EA Black Box said at the time that they did
+    // not want to charge again for shoes and shirts. The empty list is the
+    // right answer here, not a gap.
 #ifdef RECOMP_DEVELOPMENT_GAME_ROOT
     descriptor.development_game_root = RECOMP_DEVELOPMENT_GAME_ROOT;
 #endif
