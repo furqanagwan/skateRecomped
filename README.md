@@ -92,7 +92,7 @@ rexglue extract "<your disc>.iso" skate2\assets
 
 ```
 framework/                  recomp-framework submodule (with thirdparty/rexglue-sdk)
-skate/                      Skate: descriptor, codegen config, settings, GDK/UWP metadata
+skate/                      Skate: descriptor, codegen config, settings, GDK metadata
 skate2/                     Skate 2
 skate3/                     Skate 3 (with the EAWebkit DLL module under config/eawebkit/)
 <GAME>/docs/NOTES.md        Research notes: codegen, crashes and fixes
