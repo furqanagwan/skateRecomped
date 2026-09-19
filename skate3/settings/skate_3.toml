@@ -1,4 +1,3 @@
-input_backend = "sdl"
 recomp_shared_controllers = true
 guide_button = false
 mnk_mode = false
